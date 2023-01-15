@@ -2,11 +2,15 @@ use clap::{Parser, Subcommand};
 use kube::Client;
 use anyhow::Result;
 
-use crate::cli::deploy_nginx::deploy_nginx_obj;
+use self::{
+    list_pods::list_pods, 
+    deploy_nginx::deploy_nginx_obj, 
+    expose_service::expose_nginx_obj
+};
 
-use self::{list_pods::list_pods, deploy_nginx::deploy_nginx};
 mod list_pods;
 mod deploy_nginx;
+mod expose_service;
 
 #[derive(Debug, Parser)]
 #[command(name="koxide")]
@@ -31,6 +35,11 @@ impl Cli {
                 println!("created deployment {:?} ", dep.metadata.name);
                 Ok(())
             }
+            Commands::ExposeService => {
+                let svc = expose_nginx_obj(client.clone()).await?;
+                println!("created service {:?} ", svc.metadata.name);
+                Ok(())
+            }
         }
     }
 }
@@ -38,5 +47,6 @@ impl Cli {
 #[derive(Debug, Subcommand)]
 pub enum Commands {
     ListPods,
-    DeployNginx
+    DeployNginx,
+    ExposeService
 }

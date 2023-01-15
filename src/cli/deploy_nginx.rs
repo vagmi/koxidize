@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 
-use k8s_openapi::{api::{apps::v1::{Deployment, DeploymentSpec}, core::v1::{PodTemplate, PodTemplateSpec, PodSpec, Container}}, apimachinery::pkg::apis::meta::v1::LabelSelector};
+use k8s_openapi::{api::{apps::v1::{Deployment, DeploymentSpec}, core::v1::{PodTemplateSpec, PodSpec, Container}}, apimachinery::pkg::apis::meta::v1::LabelSelector};
 use kube::{Client, api::{Api, PostParams}, core::ObjectMeta};
 use anyhow::{Result, Context};
 use serde_json::json;
