@@ -3,5 +3,5 @@
 * [x] Connect to Kubernetes and get a list of running pods
 * [x] Create a deployment of nginx
 * [x] Create a service that maps to nginx using cluster ip
-* [ ] Port forward a given pod to local port
+* [x] Port forward a given pod to local port
 * [ ] Create a controller with Kubernetes

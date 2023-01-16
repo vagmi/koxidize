@@ -5,9 +5,11 @@ use anyhow::Result;
 use self::{
     list_pods::list_pods, 
     deploy_nginx::deploy_nginx_obj, 
-    expose_service::expose_nginx_obj
+    expose_service::expose_nginx_obj,
+    port_forward::port_forward
 };
 
+mod port_forward;
 mod list_pods;
 mod deploy_nginx;
 mod expose_service;
@@ -40,6 +42,10 @@ impl Cli {
                 println!("created service {:?} ", svc.metadata.name);
                 Ok(())
             }
+            Commands::PortForward => {
+                port_forward(client.clone()).await?;
+                Ok(())
+            }
         }
     }
 }
@@ -48,5 +54,6 @@ impl Cli {
 pub enum Commands {
     ListPods,
     DeployNginx,
-    ExposeService
+    ExposeService,
+    PortForward
 }
